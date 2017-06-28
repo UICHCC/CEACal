@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title> UIC EXAM SCORE CALCULATOR </title>
+    <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
+    <style>
+        .scoreCard{
+            margin: 50px;
+        }
+        .noneDisplay{
+            display: none;
+        }
+        .yesDisplay{
+            display: block;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>UIC EXAM SCORE CALCULATOR</h1>
+        <small id="emailHelp" class="form-text text-muted">本页面不会记录任何信息</small>
+        <br>
+        <form>
+            <div class="form-group">
+                <label for="CEEScoreInput">高考成绩<small id="CEEScoreInputLabel" style="color: #ff2843;"></small></label>
+                <input type="text" class="form-control" id="CEEScoreInput" aria-describedby="CEEScore" placeholder="请输入高考成绩（不需要换算）" onblur="numericValidate(id)">
+            </div>
+            <div class="form-group">
+                <label for="CEAScoreInput">自主招生面试成绩<small id="CEAScoreInputLabel" style="color: #ff2843;"></small></label>
+                <input type="text" class="form-control" id="CEAScoreInput" aria-describedby="CEAScore" placeholder="请输入自主招生面试成绩" onblur="numericValidate(id)">
+            </div>
+            <div class="form-group">
+                <label for="ALScore">高二学业水平测等级</label>
+                <select class="form-control" id="ALScore">
+                    <option>AAA</option>
+                    <option>AAB</option>
+                    <option>AAC</option>
+                    <option>ABB</option>
+                    <option>ABC</option>
+                    <option>ACC</option>
+                    <option>BBB</option>
+                    <option>BBC</option>
+                    <option>BCC</option>
+                    <option>CCC</option>
+                </select>
+            </div>
+        </form>
+        <button class="btn btn-primary" onclick="clickToCal()">计算</button>
+        <div id="SDC" class="noneDisplay">
+            <div class="card text-center scoreCard">
+                <div class="card-block">
+                    <p class="card-text">你的 UIC 综合分为：</p>
+                    <h1 class="card-title" id="scorePlaceholder"></h1>
+                </div>
+                <div class="card-footer text-muted">
+                    Powered By UICcst
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+<script src="js/cal.js"></script>
+</html>
