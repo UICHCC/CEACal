@@ -6,6 +6,13 @@
     <title> UIC EXAM SCORE CALCULATOR </title>
     <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
     <style>
+        html {
+            position: relative;
+            min-height: 100%;
+        }
+        body {
+            margin-bottom: 60px; /* Margin bottom by footer height */
+        }
         .scoreCard{
             margin: 50px;
         }
@@ -14,6 +21,19 @@
         }
         .yesDisplay{
             display: block;
+        }
+        .footer {
+            position: absolute;
+            bottom: 0;
+            width: 100%;
+            height: 60px; /* Set the fixed height of the footer here */
+            line-height: 60px; /* Vertically center the text there */
+            background-color: #f5f5f5;
+        }
+        .container {
+            width: auto;
+            max-width: 680px;
+            padding: 0 15px;
         }
     </style>
 </head>
@@ -53,14 +73,21 @@
                 <div class="card-block">
                     <p class="card-text">你的 UIC 综合分为：</p>
                     <h1 class="card-title" id="scorePlaceholder"></h1>
-                </div>
-                <div class="card-footer text-muted">
-                    <a href="https://uichcc.com">Powered By UIC HCC Computer Society</a>
+                    <div class="progress">
+                        <div class="progress-bar" role="progressbar" id="ceeP" style="width: 15%" aria-valuenow="15" aria-valuemin="0" aria-valuemax="100"></div>
+                        <div class="progress-bar bg-success" role="progressbar" id="ceaP" style="width: 30%" aria-valuenow="30" aria-valuemin="0" aria-valuemax="100"></div>
+                        <div class="progress-bar bg-info" role="progressbar" id="alP" style="width: 20%" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100"></div>
+                    </div>
                 </div>
             </div>
         </div>
-        <a href="http://uic.edu.hk/cn/admission/news/20352-2016">计算方法</a>
     </div>
+    <footer class="footer">
+        <div class="container">
+            <span class="text-muted">&copy; 2017-2018 UIC HCC Computer Society</span>
+            <a href="http://uic.edu.hk/cn/admission/news/20352-2016" style="padding-left: 1rem;">计算方法</a>
+        </div>
+    </footer>
 </body>
 <script src="js/cal.js"></script>
 </html>

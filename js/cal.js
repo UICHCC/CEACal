@@ -32,9 +32,15 @@ function numericValidate(element){
 function clickToCal(){
     var CEAScore = parseInt(document.getElementById("CEAScoreInput").value);
     var CEEScore = parseInt(document.getElementById("CEEScoreInput").value);
-    var finalScore = 0;
-    finalScore += ALFormToScore();
-    finalScore += CEAScore + CEEScore*0.6;
+    var ALScore = ALFormToScore();
+    var finalScore = CEAScore + CEEScore*0.6 + ALScore;
     document.getElementById("scorePlaceholder").innerHTML = finalScore.toFixed(2);
+    barChange("ceeP", CEEScore*0.6);
+    barChange("ceaP", CEAScore);
+    barChange("alP", ALScore);
     document.getElementById("SDC").className = "yesDisplay";
+}
+
+function barChange(id, score){
+    document.getElementById(id).style.width =  score / 750 * 100 + '%';
 }
