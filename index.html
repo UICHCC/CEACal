@@ -45,7 +45,7 @@
         <form>
             <div class="form-group">
                 <label for="CEEScoreInput">高考成绩<small id="CEEScoreInputLabel" style="color: #ff2843;"></small></label>
-                <input type="text" class="form-control" id="CEEScoreInput" aria-describedby="CEEScore" placeholder="请输入高考成绩（不需要换算）" onblur="numericValidate(id)">
+                <input type="number" max="750" class="form-control" id="CEEScoreInput" aria-describedby="CEEScore" placeholder="请输入高考成绩（不需要换算）" onblur="numericValidate(id)">
             </div>
             <div class="form-group">
                 <label for="CEAScoreInput">自主招生面试成绩<small id="CEAScoreInputLabel" style="color: #ff2843;"></small></label>
@@ -71,7 +71,7 @@
         <div id="SDC" class="noneDisplay">
             <div class="card text-center scoreCard">
                 <div class="card-block">
-                    <p class="card-text">你的 UIC 综合分为：</p>
+                    <p class="card-text">你的 UIC 综合评价录取成绩为：</p>
                     <h1 class="card-title" id="scorePlaceholder"></h1>
                     <div class="progress">
                         <div class="progress-bar" role="progressbar" id="ceeP" style="width: 15%" aria-valuenow="15" aria-valuemin="0" aria-valuemax="100"></div>
@@ -85,7 +85,7 @@
     <footer class="footer">
         <div class="container">
             <span class="text-muted">&copy; 2017-2018 UIC HCC Computer Society</span>
-            <a href="http://uic.edu.hk/cn/admission/news/20352-2016" style="padding-left: 1rem;">计算方法</a>
+            <a href="http://web.uic.edu.hk/cn/admission/events/3871-2018" style="padding-left: 1rem;">计算方法</a>
         </div>
     </footer>
 </body>

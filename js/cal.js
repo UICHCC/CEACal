@@ -16,10 +16,13 @@ function ALFormToScore(){
 }
 
 function numericValidate(element){
-    var numExp = /^\d{0,3}$/; //Only 3 digits allow.
     var elementText = document.getElementById(element).value;
     var labelName = element + "Label";
-    if (elementText.match(numExp)){
+    var score = 750;
+    if (element === "CEAScoreInput"){
+        score = 225;
+    }
+    if (parseInt(elementText) <= score){
         document.getElementById(labelName).innerHTML = "";
     }
     else {
