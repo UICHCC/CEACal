@@ -54,18 +54,21 @@
             <div class="form-group">
                 <label for="ALScore">高二学业水平测等级</label>
                 <input type="text" class="form-control" id="ALScore" aria-describedby="ALScore" placeholder="高二学业水平测等级（如：AAAABB）">
-                <!-- <select class="form-control" id="ALScore">
-                    <option>AAA</option>
-                    <option>AAB</option>
-                    <option>AAC</option>
-                    <option>ABB</option>
-                    <option>ABC</option>
-                    <option>ACC</option>
-                    <option>BBB</option>
-                    <option>BBC</option>
-                    <option>BCC</option>
-                    <option>CCC</option>
-                </select> -->
+            </div>
+            <div class="form-check">
+            <label for="subjectRadio">首选科目</label>
+            <div>
+                <input class="form-check-input" style="margin-left: 0rem;" type="radio" name="subjectRadio" id="RadioPhy" value="物理" checked>
+                <label class="form-check-label" for="RadioPhy">
+                    物理
+                </label>
+                </div>
+                <div class="form-check">
+                <input class="form-check-input" style="margin-left: 0rem;" type="radio" name="subjectRadio" id="RadioHis" value="历史">
+                <label class="form-check-label" for="RadioHis">
+                    历史
+                </label>
+            </div>
             </div>
         </form>
         <button class="btn btn-primary" onclick="clickToCal()">计算</button>
@@ -90,5 +93,135 @@
         </div>
     </footer>
 </body>
-<script src="js/cal.js"></script>
+<!-- <script src="js/cal.js"></script> -->
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script>
+function ALFormToScore(){
+    var levelText = document.getElementById('ALScore').value;
+    var levelArray = levelText.split("");
+    var levelScore = 0;
+    for (var i = 0; i < levelArray.length; i += 1){
+        if (levelArray[i] === "A"){
+            levelScore += 75;
+        }else if (levelArray[i] === "B"){
+            levelScore += 64;
+        }else if (levelArray[i] === "C"){
+            levelScore += 41;
+        }else if (levelArray[i] === "D"){
+            levelScore += 19;
+        }
+    }
+    return levelScore / levelArray.length;
+}
+
+function numericValidate(element){
+    var elementText = document.getElementById(element).value;
+    var labelName = element + "Label";
+    var score = 750;
+    if (element === "CEAScoreInput"){
+        score = 225;
+    }
+    if (parseInt(elementText) <= score){
+        document.getElementById(labelName).innerHTML = "";
+    }
+    else {
+        document.getElementById(element).focus();
+        document.getElementById(labelName).innerHTML = "  输入有误，请重试";
+        return -1;
+    }
+}
+
+// function letterValidate(element){
+//     var elementText = document.getElementById(element).value;
+//     var labelName = element + "Label";
+//     var score = 750;
+//     if (element === "CEAScoreInput"){
+//         score = 225;
+//     }
+//     if (parseInt(elementText) <= score){
+//         document.getElementById(labelName).innerHTML = "";
+//     }
+//     else {
+//         document.getElementById(element).focus();
+//         document.getElementById(labelName).innerHTML = "  输入有误，请重试";
+//         return -1;
+//     }
+// }
+
+function clickToCal(){
+    let CEAScore = parseInt(document.getElementById("CEAScoreInput").value);
+    let CEEScore = parseInt(document.getElementById("CEEScoreInput").value);
+    let ALScore = ALFormToScore();
+    let finalScore = CEAScore + CEEScore * 0.6 + ALScore;
+    let radioButtons = document.querySelectorAll('input[name="subjectRadio"]');
+    let selectedSize;
+    for (const radioButton of radioButtons) {
+        if (radioButton.checked) {
+            selectedSize = radioButton.value;
+            break;
+        }
+    }
+    if (selectedSize === '物理'){
+        if (CEAScore >= 200){
+            console.log('CEA > 200')
+            if (CEEScore >= 508){
+                console.log('OK')
+            } else {
+                notAvailableAlert()
+                return 0
+            }
+        } else if  (CEAScore >= 188 && CEAScore <=199){
+            if (CEEScore >= 538){
+                console.log('OK')
+            } else {
+                notAvailableAlert()
+                return 0
+            }
+        } else {
+            notAvailableAlert()
+            return 0
+        }
+    } else {
+        if (CEAScore >= 200){
+            console.log('CEA > 200')
+            if (CEEScore >= 502){
+                console.log('OK')
+            } else {
+                notAvailableAlert()
+                return 0
+            }
+        } else if  (CEAScore >= 188 && CEAScore <=199){
+            if (CEEScore >= 532){
+                console.log('OK')
+            } else {
+                notAvailableAlert()
+                return 0
+            }
+        } else {
+            notAvailableAlert()
+            return 0
+        }
+    }
+    document.getElementById("scorePlaceholder").innerHTML = finalScore.toFixed(1);
+    barChange("ceeP", CEEScore*0.6);
+    barChange("ceaP", CEAScore);
+    barChange("alP", ALScore);
+    document.getElementById("SDC").className = "yesDisplay";
+}
+
+function barChange(id, score){
+    document.getElementById(id).style.width =  score / 750 * 100 + '%';
+}
+
+function notAvailableAlert(){
+    Swal.fire({
+        icon: 'error',
+        title: '抱歉',
+        text: '您的分数不符合招生要求',
+        footer: '<a href="https://admission.uic.edu.cn">前往 UIC 招生网</a>'
+    })
+    document.getElementById("SDC").classList.remove("yesDisplay");
+}
+</script>
+
 </html>
