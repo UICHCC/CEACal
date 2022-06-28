@@ -1,18 +1,19 @@
 function ALFormToScore(){
-    var levelIndex = document.getElementById('ALScore').selectedIndex;
-    var levelText = document.getElementById("ALScore")[levelIndex].text;
+    var levelText = document.getElementById('ALScore').value;
     var levelArray = levelText.split("");
     var levelScore = 0;
     for (var i = 0; i < levelArray.length; i += 1){
         if (levelArray[i] === "A"){
-            levelScore += 25;
+            levelScore += 75;
         }else if (levelArray[i] === "B"){
-            levelScore += 21;
+            levelScore += 64;
         }else if (levelArray[i] === "C"){
-            levelScore += 17;
+            levelScore += 41;
+        }else if (levelArray[i] === "D"){
+            levelScore += 19;
         }
     }
-    return levelScore;
+    return levelScore / levelArray.length;
 }
 
 function numericValidate(element){
@@ -31,6 +32,23 @@ function numericValidate(element){
         return -1;
     }
 }
+
+// function letterValidate(element){
+//     var elementText = document.getElementById(element).value;
+//     var labelName = element + "Label";
+//     var score = 750;
+//     if (element === "CEAScoreInput"){
+//         score = 225;
+//     }
+//     if (parseInt(elementText) <= score){
+//         document.getElementById(labelName).innerHTML = "";
+//     }
+//     else {
+//         document.getElementById(element).focus();
+//         document.getElementById(labelName).innerHTML = "  输入有误，请重试";
+//         return -1;
+//     }
+// }
 
 function clickToCal(){
     var CEAScore = parseInt(document.getElementById("CEAScoreInput").value);
