@@ -52,8 +52,8 @@
                 <input type="text" class="form-control" id="CEAScoreInput" aria-describedby="CEAScore" placeholder="请输入自主招生面试成绩" onblur="numericValidate(id)">
             </div>
             <div class="form-group">
-                <label for="ALScore">高二学业水平测等级</label>
-                <input type="text" class="form-control" id="ALScore" aria-describedby="ALScore" placeholder="高二学业水平测等级（如：AAAABB）">
+                <label for="ALScore">高二学业水平测等级<small id="ALScoreLabel" style="color: #ff2843;"></small></label>
+                <input type="text" class="form-control" id="ALScore" aria-describedby="ALScore" placeholder="高二学业水平测等级（如：AAAABB）" onblur="letterValidate(id)">
             </div>
             <div class="form-check">
             <label for="subjectRadio">首选科目</label>
@@ -71,7 +71,7 @@
             </div>
             </div>
         </form>
-        <button class="btn btn-primary" onclick="clickToCal()">计算</button>
+        <button class="btn btn-primary mt-2" onclick="clickToCal()">计算</button>
         <div id="SDC" class="noneDisplay">
             <div class="card text-center scoreCard">
                 <div class="card-block">
@@ -131,22 +131,35 @@ function numericValidate(element){
     }
 }
 
-// function letterValidate(element){
-//     var elementText = document.getElementById(element).value;
-//     var labelName = element + "Label";
-//     var score = 750;
-//     if (element === "CEAScoreInput"){
-//         score = 225;
-//     }
-//     if (parseInt(elementText) <= score){
-//         document.getElementById(labelName).innerHTML = "";
-//     }
-//     else {
-//         document.getElementById(element).focus();
-//         document.getElementById(labelName).innerHTML = "  输入有误，请重试";
-//         return -1;
-//     }
-// }
+function letterValidate(element){
+    let elementText = document.getElementById(element).value;
+    let labelName = element + "Label";
+    let status = {'input': true, 'fullfill': true}
+    const valid_letter = ['A', 'B', 'C', 'D']
+    if (elementText.length == 6){
+        for (let i = 0; i < elementText.length; i++){
+            if (valid_letter.indexOf(elementText[i]) < 0){
+                status['fullfill'] = false
+            }
+        }
+    } else {
+        status['input'] = false
+    }
+
+    if (status['input']) {
+        if (!status['fullfill']) {
+            document.getElementById(element).focus();
+            document.getElementById(labelName).innerHTML = "  报考需要学业水平测试成绩在 D 以上（包含D）";
+            return -1;
+        } else {
+            document.getElementById(labelName).innerHTML = "";
+        }
+    } else {
+        document.getElementById(element).focus();
+        document.getElementById(labelName).innerHTML = "  输入有误，请重试";
+        return -1;
+    }
+}
 
 function clickToCal(){
     let CEAScore = parseInt(document.getElementById("CEAScoreInput").value);
@@ -215,7 +228,7 @@ function barChange(id, score){
 
 function notAvailableAlert(){
     Swal.fire({
-        icon: 'error',
+        icon: 'info',
         title: '抱歉',
         text: '您的分数不符合招生要求',
         footer: '<a href="https://admission.uic.edu.cn">前往 UIC 招生网</a>'
