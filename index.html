@@ -96,6 +96,15 @@
 <!-- <script src="js/cal.js"></script> -->
 <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script>
+const cea_bar_1 = 200
+const cea_bar_2 = 188
+
+const cee_phy_bar_1 = 508
+const cee_phy_bar_2 = 538
+
+const cee_his_bar_1 = 502
+const cee_his_bar_2 = 532
+
 function ALFormToScore(){
     var levelText = document.getElementById('ALScore').value;
     var levelArray = levelText.split("");
@@ -175,16 +184,15 @@ function clickToCal(){
         }
     }
     if (selectedSize === '物理'){
-        if (CEAScore >= 200){
-            console.log('CEA > 200')
-            if (CEEScore >= 508){
+        if (CEAScore >= cea_bar_1){
+            if (CEEScore >= cee_phy_bar_1){
                 console.log('OK')
             } else {
                 notAvailableAlert()
                 return 0
             }
-        } else if  (CEAScore >= 188 && CEAScore <=199){
-            if (CEEScore >= 538){
+        } else if  (CEAScore >= cea_bar_2 && CEAScore <= cea_bar_1 - 1){
+            if (CEEScore >= cee_phy_bar_2){
                 console.log('OK')
             } else {
                 notAvailableAlert()
@@ -195,16 +203,15 @@ function clickToCal(){
             return 0
         }
     } else {
-        if (CEAScore >= 200){
-            console.log('CEA > 200')
-            if (CEEScore >= 502){
+        if (CEAScore >= cea_bar_1){
+            if (CEEScore >= cee_his_bar_1){
                 console.log('OK')
             } else {
                 notAvailableAlert()
                 return 0
             }
-        } else if  (CEAScore >= 188 && CEAScore <=199){
-            if (CEEScore >= 532){
+        } else if  (CEAScore >= cea_bar_2 && CEAScore <= cea_bar_1 - 1){
+            if (CEEScore >= cee_his_bar_2){
                 console.log('OK')
             } else {
                 notAvailableAlert()
@@ -216,7 +223,7 @@ function clickToCal(){
         }
     }
     document.getElementById("scorePlaceholder").innerHTML = finalScore.toFixed(1);
-    barChange("ceeP", CEEScore*0.6);
+    barChange("ceeP", CEEScore * 0.6);
     barChange("ceaP", CEAScore);
     barChange("alP", ALScore);
     document.getElementById("SDC").className = "yesDisplay";
